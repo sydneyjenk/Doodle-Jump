@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid')
     const doodler = document.createElement('div')
+    let button = document.createElement('button')
     let doodlerLeftSpace = 50
     let startPoint = 150
     let doodlerBottomSpace = startPoint
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let rightTimerId
     let gridHeight = 600
     let score = 0 
+    let playAgain = false
 
     function createDoodler() {
         grid.appendChild(doodler)
@@ -25,11 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
         doodler.style.bottom = doodlerBottomSpace + 'px'
 
     }
+    function startGame() {
+        grid.appendChild(button)
+        button.classList.add('button')
+        button.type = "submit"
+        button.innerHTML = "Start Game"
+        button.addEventListener("click", function(){
+            start()
+            button.style.visibility = "hidden"
+        })
+    }
 
     class Platform {
         constructor(newPlatBottom){
             this.bottom = newPlatBottom
-            this.left = Math.random() * 315
+            this.left = Math.random() * 715
             this.visual = document.createElement('div')
 
             const visual = this.visual
@@ -155,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isGoingLeft = false
         }
         rightTimerId = setInterval(function () {
-            if (doodlerLeftSpace <= 340) {
+            if (doodlerLeftSpace <= 740) {
                 doodlerLeftSpace += 5
                 doodler.style.left = doodlerLeftSpace + 'px'
             } else moveLeft()
@@ -171,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     function start() {
-        if (!isGameOver){
+        if (!isGameOver) {
             createPlatforms()
             createDoodler()
             setInterval(movePlatforms, 30)
@@ -180,6 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     //attach to button
-    start()
+    startGame()
 
 })
